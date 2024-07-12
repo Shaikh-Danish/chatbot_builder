@@ -13,19 +13,20 @@ import {
 import "@xyflow/react/dist/style.css";
 
 import RootNode from "@/components/nodes/RootNode";
-import SendTextNode from "@/components/nodes/SendTextNode";
 import AddNode from "@/components/nodes/AddNode";
-// import TextUpdaterNode from "@/components/nodes/TextNode";
+import TextNode from "@/components/nodes/TextNode";
+import ButtonNode from "@/components/nodes/ButtonNode";
 
 interface Edges {
   id: string;
   source: string;
   target: string;
   type: string;
+  sourceHandle?: string;
 }
 
 const rfStyle = {
-  backgroundColor: "#B8CEFF",
+  backgroundColor: "#FFFFFF",
 };
 
 const nodes = [
@@ -40,20 +41,52 @@ const nodes = [
   },
   {
     id: "node-2",
-    type: "sendText",
+    type: "sendButton",
     targetPosition: "top",
     position: { x: -250, y: 100 },
-    data: { label: "" },
+    data: {
+      title: "Button Card",
+      message: "Create Chatbots without code.",
+      type: "simple-button",
+      buttons: [
+        { title: "button1", id: "button-1" },
+        { title: "button2", id: "button-2" },
+        { title: "button3", id: "button-3" },
+      ],
+    },
   },
+  // {
+  //   id: "node-2",
+  //   type: "sendText",
+  //   targetPosition: "top",
+  //   position: { x: -250, y: 100 },
+  //   data: { title: "Welcome Card", message: "Create Chatbots without code.", type: "text" },
+  // },
 ];
 
 const generateEdges = (nodes: any): Edges[] => {
   const edges: Edges[] = [];
 
-  for (let i = 0; i < nodes.length - 1; i++) {
+  for (let i = 0; i < nodes.length; i++) {
+    if (nodes[i].type === "sendButton") {
+      const node = nodes[i];
+
+      node.data.buttons.forEach((button: any) => {
+        edges.push({
+          id: `edge-${generateRandomId()}`,
+          source: node.id,
+          target: button.id,
+          type: "smoothstep",
+          sourceHandle: button.id + "-a",
+        });
+      });
+
+      continue;
+    }
+
     const sourceId = nodes[i].target;
 
-    for (let j = i + 1; j <= nodes.length; j++) {
+    for (let j = i + 1; j <= nodes.length - 1; j++) {
       const targetId = nodes[j]?.id;
 
       if (sourceId === targetId) {
@@ -69,6 +102,7 @@ const generateEdges = (nodes: any): Edges[] => {
     }
   }
 
+
   return edges;
 };
 
@@ -76,7 +110,34 @@ const generateNodes = (nodes: any) => {
   const newNodes = [];
 
   for (let i = 0; i < nodes.length; i++) {
-    if (!("target" in nodes[i])) {
+    const node = nodes[i];
+
+    if (node.type === "sendButton" || node.type === "sendRadio") {
+      const randomId = `node-${generateRandomId()}`;
+
+      nodes[i]["target"] = randomId;
+
+      newNodes.push(nodes[i]);
+
+      let x = nodes[i].position.x + 600;
+      let y = nodes[i].position.y - 70;
+
+      node.data.buttons.forEach((button: any) => {
+        newNodes.push({
+          pid: randomId,
+          cardType: "button",
+          id: button.id,
+          type: "addNode",
+          data: { value: 123 },
+          targetPosition: "left",
+          position: { x, y },
+        });
+
+        y += 150;
+      });
+
+      continue;
+    } else if (!("target" in nodes[i])) {
       const randomId = `node-${generateRandomId()}`;
 
       nodes[i]["target"] = randomId;
@@ -103,10 +164,14 @@ const generateNodes = (nodes: any) => {
 const initialNodes = generateNodes(nodes);
 const initialEdges = generateEdges(initialNodes);
 
+console.log(initialNodes, "nodes");
+console.log(initialEdges, "edges");
+
 const nodeTypes = {
   initialNode: RootNode,
-  sendText: SendTextNode,
+  sendText: TextNode,
   addNode: AddNode,
+  sendButton: ButtonNode,
 };
 
 function Flow() {

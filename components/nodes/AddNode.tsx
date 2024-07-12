@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 import MessageTypes from "../MessageTypes";
 
-const AddNode: React.FC<{ isConnectable: any }> = ({ isConnectable }) => {
+const AddNode: React.FC<{ isConnectable: boolean }> = ({ isConnectable }) => {
   const [type, setType] = useState("");
   const [open, setOpen] = useState(false);
 

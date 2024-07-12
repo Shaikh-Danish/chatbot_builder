@@ -1,78 +1,44 @@
-"use client";
+import React from "react";
 
-import { useCallback } from "react";
+import { Handle, Position, NodeProps } from "@xyflow/react";
 
-import { Handle, Position } from "@xyflow/react";
+import NodeHeader from "./NodeHeader";
 
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+interface TextNodeProps {
+  isConnectable: boolean;
+  id: string;
+  position: {
+    x: number;
+    y: number;
+  };
+  data: {
+    title: string;
+    message: string;
+  };
+}
 
-const handleStyle = { left: 10 };
-
-function TextUpdaterNode({
-  data,
-  isConnectable,
-}: {
-  data: any;
-  isConnectable: any;
-}) {
-  const onChange = useCallback((evt: any) => {
-    console.log(evt.target.value);
-  }, []);
-
+const TextNode = (props: NodeProps<TextNodeProps>) => {
   return (
-    <div className="text-updater-node">
+    <div className="text-node w-[300px] bg-gray-700 text-white p-[2px] rounded-md cursor-pointer hover:bg-green-500">
+      <NodeHeader title={props.data.title} />
+
+      <div className="text-black bg-white px-2 py-5 rounded-sm">
+        <p>{props.data.message}</p>
+      </div>
+
       <Handle
         type="target"
-        position={Position.Top}
-        isConnectable={isConnectable}
+        position={Position.Left}
+        isConnectable={props.isConnectable}
       />
-      <div>
-        <Card className="w-[150px] p-0">
-          <CardContent className="p-0">
-            <form>
-              <div className="">
-                <div className="">
-                  <Label htmlFor="name">Name</Label>
-                  {/* <Input id="name" placeholder="Name of your project" className="w-[100%] p-0 m-0" /> */}
-                  <input type="text" id="name" placeholder="name of your project" className="w-[100%] p-0 m-0" />
-                </div>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
+
       <Handle
         type="source"
-        position={Position.Bottom}
-        id="a"
-        style={handleStyle}
-        isConnectable={isConnectable}
-      />
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        id="b"
-        isConnectable={isConnectable}
+        position={Position.Right}
+        isConnectable={props.isConnectable}
       />
     </div>
   );
-}
+};
 
-export default TextUpdaterNode;
+export default TextNode;
