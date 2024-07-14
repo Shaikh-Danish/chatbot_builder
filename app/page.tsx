@@ -23,6 +23,7 @@ interface Edges {
   target: string;
   type: string;
   sourceHandle?: string;
+  animated?: true;
 }
 
 const rfStyle = {
@@ -39,22 +40,22 @@ const nodes = [
     deletable: false,
     target: "node-2",
   },
-  {
-    id: "node-2",
-    type: "sendButton",
-    targetPosition: "top",
-    position: { x: -250, y: 100 },
-    data: {
-      title: "Button Card",
-      message: "Create Chatbots without code.",
-      type: "simple-button",
-      buttons: [
-        { title: "button1", id: "button-1" },
-        { title: "button2", id: "button-2" },
-        { title: "button3", id: "button-3" },
-      ],
-    },
-  },
+  // {
+  //   id: "node-2",
+  //   type: "sendButton",
+  //   targetPosition: "top",
+  //   position: { x: -250, y: 100 },
+  //   data: {
+  //     title: "Button Card",
+  //     message: "Create Chatbots without code.",
+  //     type: "simple-button",
+  //     buttons: [
+  //       { title: "button1", id: "button-1" },
+  //       { title: "button2", id: "button-2" },
+  //       { title: "button3", id: "button-3" },
+  //     ],
+  //   },
+  // },
   // {
   //   id: "node-2",
   //   type: "sendText",
@@ -102,12 +103,27 @@ const generateEdges = (nodes: any): Edges[] => {
     }
   }
 
-
   return edges;
 };
 
 const generateNodes = (nodes: any) => {
   const newNodes = [];
+
+  if (nodes.length === 1) {
+    const randomId = `node-${generateRandomId()}`;
+
+    nodes[0]["target"] = randomId;
+    newNodes.push(nodes[0]);
+
+    newNodes.push({
+      id: randomId,
+      type: "addNode",
+      targetPosition: "left",
+      position: { x: 0, y: 100 },
+    });
+
+    return newNodes;
+  }
 
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
@@ -128,7 +144,6 @@ const generateNodes = (nodes: any) => {
           cardType: "button",
           id: button.id,
           type: "addNode",
-          data: { value: 123 },
           targetPosition: "left",
           position: { x, y },
         });
@@ -163,9 +178,6 @@ const generateNodes = (nodes: any) => {
 
 const initialNodes = generateNodes(nodes);
 const initialEdges = generateEdges(initialNodes);
-
-console.log(initialNodes, "nodes");
-console.log(initialEdges, "edges");
 
 const nodeTypes = {
   initialNode: RootNode,
