@@ -1,11 +1,21 @@
 import React from "react";
 
 import { Sheet, SheetContent, SheetFooter } from "@/components/ui/sheet";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
 import SheetHeader from "./SheetHeader";
 import SheetInput from "./SheetInput";
 import SheetTextArea from "./SheetTextArea";
+import { Label } from "@radix-ui/react-select";
 
 interface DocumentSheetProps {
   type: string;
@@ -22,7 +32,7 @@ const DocumentSheet: React.FC<DocumentSheetProps> = ({
   setOpen,
   cardName,
   caption,
-  fileName
+  fileName,
 }) => {
   return (
     <Sheet
@@ -40,10 +50,54 @@ const DocumentSheet: React.FC<DocumentSheetProps> = ({
             <SheetInput label="Name *" cardName={cardName} />
           </div>
           <div className="my-4">
-            <SheetTextArea label="Caption" message={caption as string}  />
+            <SheetTextArea label="Caption" message={caption as string} />
           </div>
           <div className="my-4">
             <SheetInput label="File Name" cardName={fileName as string} />
+          </div>
+          <div className="mt-2">
+            <div>
+              <label className="text-[20px] font-medium">
+                Select File Type *
+              </label>
+              <Select>
+                <SelectTrigger
+                  id="file-type"
+                  className="w-[100%] p-2 py-5 text-md bg-white mt-3 border-[1px] border-gray-500 outline-none"
+                >
+                  <SelectValue placeholder="Select File Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup className="w-[100%] rounded-md p-1 border-[1px] border-gray-500">
+                    <SelectLabel>Select File Type</SelectLabel>
+                    <SelectItem className="cursor-pointer" value="txt">
+                      .txt
+                    </SelectItem>
+                    <SelectItem className="cursor-pointer" value="pdf">
+                      .pdf
+                    </SelectItem>
+                    <SelectItem className="cursor-pointer" value="xls">
+                      .xls
+                    </SelectItem>
+                    <SelectItem className="cursor-pointer" value="xlsx">
+                      .xlsx
+                    </SelectItem>
+                    <SelectItem className="cursor-pointer" value="doc">
+                      .doc
+                    </SelectItem>
+                    <SelectItem className="cursor-pointer" value="docx">
+                      .docs
+                    </SelectItem>
+                    <SelectItem className="cursor-pointer" value="ppt">
+                      .ppt
+                    </SelectItem>
+                    <SelectItem className="cursor-pointer" value="pptx">
+                      .pptx
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
         <SheetFooter>
