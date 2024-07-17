@@ -15,7 +15,7 @@ interface ButtonSheetProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cardName: string;
   message: string;
-  buttons: any
+  buttons: any;
 }
 
 const ButtonSheet: React.FC<ButtonSheetProps> = ({
@@ -24,11 +24,11 @@ const ButtonSheet: React.FC<ButtonSheetProps> = ({
   setOpen,
   cardName,
   message,
-  buttons
+  buttons,
 }) => {
   return (
     <Sheet
-      open={type === "button" && true}
+      open={type === "button" || (type === "radio" && true)}
       onOpenChange={(o) => {
         setType("");
         setOpen(false);
@@ -45,20 +45,21 @@ const ButtonSheet: React.FC<ButtonSheetProps> = ({
           </div>
           <div className="my-3">
             <Label className="text-[20px]">Button text</Label>
-
-            {buttons.map((button: any) => (
-              <>
-                <br />
-                <input
-                  type="text"
-                  value={button}
-                  className="w-[80%] p-2 mt-3 border-[1px] border-gray-500 border-solid rounded-md focus:outline-0"
-                />
-                <button className="ml-3 p-1.5 bg-red-500 rounded-full">
-                  <FaMinus className="text-white" />
-                </button>
-              </>
-            ))}
+            <div className="overflow-scroll h-[42vh] mt-4">
+              {buttons.map((button: any) => (
+                <>
+                  <br />
+                  <input
+                    type="text"
+                    value={button}
+                    className="w-[80%] p-2 mt-3 border-[1px] border-gray-500 border-solid rounded-md focus:outline-0"
+                  />
+                  <button className="ml-3 p-1.5 bg-red-500 rounded-full">
+                    <FaMinus className="text-white" />
+                  </button>
+                </>
+              ))}
+            </div>
           </div>
         </div>
         <SheetFooter>

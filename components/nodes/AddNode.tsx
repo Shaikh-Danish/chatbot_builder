@@ -8,7 +8,6 @@ import { FaMinus } from "react-icons/fa6";
 
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
@@ -19,10 +18,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-import MessageTypes from "../MessageTypes";
+import MessageTypes from "@/components/MessageTypes";
 
-import TextSheet from "../sheet/TextSheet";
-import DocumentSheet from "../sheet/DocumentSheet";
+import TextSheet from "@/components/sheet/TextSheet";
+import DocumentSheet from "@/components/sheet/DocumentSheet";
+import ButtonSheet from "@/components/sheet/ButtonSheet";
 
 const AddNode: React.FC<{ isConnectable: boolean }> = ({ isConnectable }) => {
   const [type, setType] = useState("");
@@ -72,151 +72,37 @@ const AddNode: React.FC<{ isConnectable: boolean }> = ({ isConnectable }) => {
       )}
 
       {type === "button" && (
-        <>
-          <Sheet
-            open={type === "button" && true}
-            onOpenChange={(o) => {
-              setType("");
-              setOpen(false);
-            }}
-          >
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>Send Message</SheetTitle>
-              </SheetHeader>
-              <div className="mb-8">
-                <div className="my-4">
-                  <Label htmlFor="message" className="text-[20px]">
-                    Name *
-                  </Label>
-                  <br />
-                  <input
-                    id="message"
-                    placeholder="Card Name"
-                    value="Message Card"
-                    className="w-[100%] p-2 mt-2 border-[1px] border-gray-500 border-solid rounded-md focus:outline-0"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="message" className="text-[20px]">
-                    Message *
-                  </Label>
-                  <textarea
-                    placeholder="Type your message here."
-                    className="w-[100%] p-2 h-[100px] mt-2 border-[1px] border-gray-500 border-solid rounded-md"
-                  />
-                </div>
-                <div className="my-3">
-                  <Label className="text-[20px]">Button text</Label>
-
-                  {["button1", "button2", "button3"].map((button) => (
-                    <>
-                      <br />
-                      <input
-                        type="text"
-                        value={button}
-                        className="w-[80%] p-2 mt-3 border-[1px] border-gray-500 border-solid rounded-md focus:outline-0"
-                      />
-                      <button className="ml-3 p-1.5 bg-red-500 rounded-full">
-                        <FaMinus className="text-white" />
-                      </button>
-                    </>
-                  ))}
-                </div>
-              </div>
-              <SheetFooter>
-                <div className="flex justify-start gap-5 w-[100%]">
-                  <Button
-                    variant="outline"
-                    className="w-[120px] border-[1px] border-gray-500 border-solid rounded-md"
-                  >
-                    Cancel
-                  </Button>
-                  <Button className="w-[120px]">Save</Button>
-                </div>
-              </SheetFooter>
-            </SheetContent>
-          </Sheet>
-        </>
+        <ButtonSheet
+          type={type}
+          setOpen={setOpen}
+          setType={setType}
+          message="Type a message"
+          cardName="Button Card"
+          buttons={["Button 1", "Button 2", "Button 3"]}
+        />
       )}
 
       {type === "radio" && (
         <div className="overflow-scroll w-[100vh]">
-          <Sheet
-            open={type === "radio" && true}
-            onOpenChange={(o) => {
-              setType("");
-              setOpen(false);
-            }}
-          >
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>Send Message</SheetTitle>
-              </SheetHeader>
-              <div className="">
-                <div className="mb-4">
-                  <Label htmlFor="message" className="text-[20px]">
-                    Name *
-                  </Label>
-                  <br />
-                  <input
-                    id="message"
-                    placeholder="Card Name"
-                    value="Message Card"
-                    className="w-[100%] p-2 mt-2 border-[1px] border-gray-500 border-solid rounded-md focus:outline-0"
-                  />
-                </div>
-                <div className="mb-4">
-                  <Label htmlFor="message" className="text-[20px]">
-                    Message *
-                  </Label>
-                  <textarea
-                    placeholder="Type your message here."
-                    className="w-[100%] p-2 h-[100px] mt-2 border-[1px] border-gray-500 border-solid rounded-md"
-                  />
-                </div>
-                <div className="mb-6">
-                  <Label className="text-[20px]">Button text</Label>
-                  <div className="overflow-scroll h-[46vh] mt-4">
-                    {[
-                      "button1",
-                      "button2",
-                      "button3",
-                      "button4",
-                      "button5",
-                      "button6",
-                      "button7",
-                      "button8",
-                      "button9",
-                      "button10",
-                    ].map((button) => (
-                      <>
-                        <input
-                          type="text"
-                          value={button}
-                          className="w-[80%] mt-3 p-2 border-[1px] border-gray-500 border-solid rounded-md focus:outline-0"
-                        />
-                        <button className="ml-3 p-1.5 bg-red-500 rounded-full">
-                          <FaMinus className="text-white" />
-                        </button>
-                      </>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <SheetFooter>
-                <div className="flex justify-start gap-5 w-[100%]">
-                  <Button
-                    variant="outline"
-                    className="w-[120px] border-[1px] border-gray-500 border-solid rounded-md"
-                  >
-                    Cancel
-                  </Button>
-                  <Button className="w-[120px]">Save</Button>
-                </div>
-              </SheetFooter>
-            </SheetContent>
-          </Sheet>
+          <ButtonSheet
+            type={type}
+            setOpen={setOpen}
+            setType={setType}
+            message="Type a message"
+            cardName="Radio Card"
+            buttons={[
+              "Button 1",
+              "Button 2",
+              "Button 3",
+              "Button 4",
+              "Button 5",
+              "Button 6",
+              "Button 7",
+              "Button 8",
+              "Button 9",
+              "Button 10",
+            ]}
+          />
         </div>
       )}
 
