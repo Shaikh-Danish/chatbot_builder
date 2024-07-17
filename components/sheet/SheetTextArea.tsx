@@ -3,10 +3,9 @@ import React from "react";
 import { Label } from "@/components/ui/label";
 
 const SheetTextArea: React.FC<{
-  title: string;
   label: string;
   message: string;
-}> = ({ title, label, message }) => {
+}> = ({ label, message }) => {
   return (
     <div className="my-4">
       <Label htmlFor="message" className="text-[20px]">

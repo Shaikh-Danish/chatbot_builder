@@ -21,6 +21,9 @@ import { Label } from "@/components/ui/label";
 
 import MessageTypes from "../MessageTypes";
 
+import TextSheet from "../sheet/TextSheet";
+import DocumentSheet from "../sheet/DocumentSheet";
+
 const AddNode: React.FC<{ isConnectable: boolean }> = ({ isConnectable }) => {
   const [type, setType] = useState("");
   const [open, setOpen] = useState(false);
@@ -59,56 +62,13 @@ const AddNode: React.FC<{ isConnectable: boolean }> = ({ isConnectable }) => {
       </Sheet>
 
       {type === "text" && (
-        <>
-          <Sheet
-            open={type === "text" && true}
-            onOpenChange={(o) => {
-              setType("");
-              setOpen(false);
-            }}
-          >
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>Send Message</SheetTitle>
-              </SheetHeader>
-              <div className="mb-8">
-                <div className="my-4">
-                  <Label htmlFor="message" className="text-[20px]">
-                    Name *
-                  </Label>
-                  <br />
-                  <input
-                    id="message"
-                    placeholder="Card Name"
-                    value="Message Card"
-                    className="w-[100%] p-2 mt-2 border-[1px] border-gray-500 border-solid rounded-md focus:outline-0"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="message" className="text-[20px]">
-                    Message *
-                  </Label>
-                  <br />
-                  <textarea
-                    placeholder="Type your message here."
-                    className="w-[100%] p-2 h-[100px] mt-2 border-[1px] border-gray-500 border-solid rounded-md focus:outline-0"
-                  />
-                </div>
-              </div>
-              <SheetFooter>
-                <div className="flex justify-start gap-5 w-[100%]">
-                  <Button
-                    variant="outline"
-                    className="w-[120px] border-[1px] border-gray-500 border-solid rounded-md"
-                  >
-                    Cancel
-                  </Button>
-                  <Button className="w-[120px]">Save</Button>
-                </div>
-              </SheetFooter>
-            </SheetContent>
-          </Sheet>
-        </>
+        <TextSheet
+          type={type}
+          setOpen={setOpen}
+          setType={setType}
+          cardName="Message Card"
+          message="write your message"
+        />
       )}
 
       {type === "button" && (
@@ -258,6 +218,17 @@ const AddNode: React.FC<{ isConnectable: boolean }> = ({ isConnectable }) => {
             </SheetContent>
           </Sheet>
         </div>
+      )}
+
+      {type === "document" && (
+        <DocumentSheet
+          type={type}
+          setType={setType}
+          setOpen={setOpen}
+          cardName="Send Document"
+          caption="Write a Caption"
+          fileName="Give a name to your file"
+        />
       )}
     </>
   );

@@ -56,13 +56,13 @@ const nodes = [
   //     ],
   //   },
   // },
-  // {
-  //   id: "node-2",
-  //   type: "sendText",
-  //   targetPosition: "top",
-  //   position: { x: -250, y: 100 },
-  //   data: { title: "Welcome Card", message: "Create Chatbots without code.", type: "text" },
-  // },
+  {
+    id: "node-2",
+    type: "sendText",
+    targetPosition: "top",
+    position: { x: -250, y: 100 },
+    data: { title: "Welcome Card", message: "Create Chatbots without code.", type: "text" },
+  },
 ];
 
 const generateEdges = (nodes: any): Edges[] => {
