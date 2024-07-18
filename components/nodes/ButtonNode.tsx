@@ -82,7 +82,7 @@ const ButtonNode = (props: NodeProps<ButtonNodeProps>) => {
             <SheetHeader title={props.data.title} />
 
             <div className="mb-8">
-              <SheetInput title={props.data.title} label="Name *" />
+              <SheetInput value={props.data.title} id="card-name" placeHolder="Button Card" label="Name *" />
               <SheetTextArea
                 title={props.data.title}
                 label="Message *"

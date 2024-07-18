@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import SheetHeader from "./SheetHeader";
 import SheetInput from "./SheetInput";
 import SheetTextArea from "./SheetTextArea";
+import UploadFile from "../UploadFile";
+import SelectExtension from "../SelectExtension";
 
 interface ButtonSheetProps {
   type: string;
@@ -27,54 +29,71 @@ const ButtonSheet: React.FC<ButtonSheetProps> = ({
   buttons,
 }) => {
   return (
-    <Sheet
-      open={type === "button" || (type === "radio" && true)}
-      onOpenChange={(o) => {
-        setType("");
-        setOpen(false);
-      }}
-    >
-      <SheetContent>
-        <SheetHeader title="Send Message" />
-        <div className="mb-8">
-          <div className="my-4">
-            <SheetInput label="Name *" cardName={cardName} />
-          </div>
-          <div>
-            <SheetTextArea label="Message *" message={message} />
-          </div>
-          <div className="my-3">
-            <Label className="text-[20px]">Button text</Label>
-            <div className="overflow-scroll h-[42vh] mt-4">
-              {buttons.map((button: any) => (
-                <>
-                  <br />
-                  <input
-                    type="text"
-                    value={button}
-                    className="w-[80%] p-2 mt-3 border-[1px] border-gray-500 border-solid rounded-md focus:outline-0"
-                  />
-                  <button className="ml-3 p-1.5 bg-red-500 rounded-full">
-                    <FaMinus className="text-white" />
-                  </button>
-                </>
-              ))}
+    <div className="bg-red-400 overflow-scroll h-[90vh]">
+      <Sheet
+        open={type === "button" || (type === "radio" && true)}
+        onOpenChange={(o) => {
+          setType("");
+          setOpen(false);
+        }}
+      >
+        <SheetContent className="overflow-scroll h-[100vh]">
+          <SheetHeader title="Send Message" />
+          <div className="mb-6">
+            <div className="my-4">
+              <SheetInput label="Name *" cardName={cardName} />
+            </div>
+            <div>
+              <SheetTextArea label="Message *" message={message} />
+            </div>
+            {type === "button" && (
+              <>
+                <div>
+                  <SelectExtension type="all" />
+                </div>
+                <div>
+                  <div className="my-4">
+                    <Label htmlFor="upload-file" className="text-[20px] block mb-2">
+                      Select File
+                    </Label>
+
+                    <UploadFile accept="all" id="upload-file" />
+                  </div>
+                </div>
+              </>
+            )}
+            <div className="">
+              <Label className="text-[20px]">Button text</Label>
+              <div className="my-1">
+                {buttons.map((button: any) => (
+                  <>
+                    <input
+                      type="text"
+                      value={button}
+                      className="w-[80%] p-2 mt-3 border-[1px] border-gray-500 border-solid rounded-md focus:outline-0"
+                    />
+                    <button className="ml-3 p-1.5 bg-red-500 rounded-full">
+                      <FaMinus className="text-white" />
+                    </button>
+                  </>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        <SheetFooter>
-          <div className="flex justify-start gap-5 w-[100%]">
-            <Button
-              variant="outline"
-              className="w-[120px] border-[1px] border-gray-500 border-solid rounded-md"
-            >
-              Cancel
-            </Button>
-            <Button className="w-[120px]">Save</Button>
-          </div>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+          <SheetFooter>
+            <div className="flex justify-start gap-5 w-[100%]">
+              <Button
+                variant="outline"
+                className="w-[120px] border-[1px] border-gray-500 border-solid rounded-md"
+              >
+                Cancel
+              </Button>
+              <Button className="w-[120px]">Save</Button>
+            </div>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+    </div>
   );
 };
 

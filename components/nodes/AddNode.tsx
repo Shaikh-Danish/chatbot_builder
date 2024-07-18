@@ -60,7 +60,7 @@ const AddNode: React.FC<{ isConnectable: boolean }> = ({ isConnectable }) => {
           <MessageTypes type={type} setType={setType} />
         </SheetContent>
       </Sheet>
-
+      
       {type === "text" && (
         <TextSheet
           type={type}
