@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MdOutlineWrapText, MdOutlineRadioButtonChecked } from "react-icons/md";
+import { MdOutlineWrapText, MdOutlineRadioButtonChecked, MdCallToAction } from "react-icons/md";
 import { RxButton } from "react-icons/rx";
 import { IoLocationSharp, IoDocumentAttachSharp } from "react-icons/io5";
 
@@ -38,6 +38,11 @@ const messageTypes: {
     type: "document",
     icons: <IoDocumentAttachSharp />,
     title: "Send Document",
+  },
+  {
+    type: "call-to-action",
+    icons: <MdCallToAction />,
+    title: "Call to Action",
   },
 ];
 

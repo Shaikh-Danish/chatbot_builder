@@ -53,10 +53,6 @@ const ButtonSheet: React.FC<ButtonSheetProps> = ({
                 </div>
                 <div>
                   <div className="my-4">
-                    <Label htmlFor="upload-file" className="text-[20px] block mb-2">
-                      Select File
-                    </Label>
-
                     <UploadFile accept="all" id="upload-file" />
                   </div>
                 </div>
