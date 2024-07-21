@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 
-import { Handle, Position } from "@xyflow/react";
+import { Handle, Position, NodeProps } from "@xyflow/react";
 import { IoIosAddCircle } from "react-icons/io";
 import { FaMinus } from "react-icons/fa6";
 
@@ -10,13 +10,10 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 
 import MessageTypes from "@/components/MessageTypes";
 
@@ -24,7 +21,20 @@ import TextSheet from "@/components/sheet/TextSheet";
 import DocumentSheet from "@/components/sheet/DocumentSheet";
 import ButtonSheet from "@/components/sheet/ButtonSheet";
 
-const AddNode: React.FC<{ isConnectable: boolean }> = ({ isConnectable }) => {
+interface AddNodeProps {
+  isConnectable: boolean;
+  id: string;
+  position: {
+    x: number;
+    y: number;
+  };
+  data: {
+    title: string;
+    message: string;
+  };
+}
+
+const AddNode = (props: NodeProps<AddNodeProps>) => {
   const [type, setType] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -46,15 +56,15 @@ const AddNode: React.FC<{ isConnectable: boolean }> = ({ isConnectable }) => {
             <Handle
               type="target"
               position={Position.Left}
-              isConnectable={isConnectable}
+              isConnectable={props.isConnectable}
             />
           </div>
         </SheetTrigger>
 
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Select Message Type</SheetTitle>
-            <SheetDescription></SheetDescription>
+            <SheetTitle>Send Message</SheetTitle>
+            <SheetDescription>Messages that will be sent to Recipient</SheetDescription>
           </SheetHeader>
 
           <MessageTypes type={type} setType={setType} />

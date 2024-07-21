@@ -30,20 +30,20 @@ const messageTypes: {
     title: "Send Radio",
   },
   {
-    type: "location",
-    icons: <IoLocationSharp />,
-    title: "Send Location",
-  },
-  {
     type: "document",
     icons: <IoDocumentAttachSharp />,
     title: "Send Document",
   },
-  {
-    type: "call-to-action",
-    icons: <MdCallToAction />,
-    title: "Call to Action",
-  },
+  // {
+  //   type: "location",
+  //   icons: <IoLocationSharp />,
+  //   title: "Send Location",
+  // },
+  // {
+  //   type: "call-to-action",
+  //   icons: <MdCallToAction />,
+  //   title: "Call to Action",
+  // },
 ];
 
 const MessageTypes: React.FC<MessageTypesProps> = ({ type, setType }) => {
